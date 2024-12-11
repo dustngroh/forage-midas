@@ -1,0 +1,37 @@
+spring:
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+      group-id: midas
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  datasource:
+    url: jdbc:h2:mem:testdb  # In-memory H2 database
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+    dialect: org.hibernate.dialect.H2Dialect
+  jpa:
+    hibernate:
+      ddl-auto: update  # Automatically updates the schema. Use "create" to drop and create the schema each time.
+    show-sql: true  # Optional: Set to true to log SQL queries
+    properties:
+      hibernate:
+        format_sql: true  # Optional: Makes the SQL logs more readable
+  h2:
+    console:
+      enabled: true  # Enables H2 console for manual inspection
+      path: /h2-console  # Access the H2 console at localhost:8080/h2-console
+
+general:
+  kafka-topic: "transaction"
+  incentive-api-url: "http://localhost:8080/incentive"
+
+server:
+  port: 33400
